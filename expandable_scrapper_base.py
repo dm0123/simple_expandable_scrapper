@@ -3,6 +3,7 @@
 """
 
 from lxml import html
+from urllib.request import urlopen
 
 class ExpandableScrapperBase(object):
     """
@@ -12,7 +13,7 @@ class ExpandableScrapperBase(object):
 
     def __init__(self, url):
         self._url = url
-        self._tree = html.parse(url)
+        self._tree = html.parse(urlopen(url))
         self._result = []
 
     def save(self, filename):

@@ -5,6 +5,7 @@
 
 from lxml import html
 from expandable_scrapper_base import *
+from top_vulnerable_password_rules import scrapper_rules
 import sys,traceback
 
 class TopVulnerablePasswordsRule(ScrapperRule):
@@ -26,13 +27,13 @@ if __name__ == "__main__":
 
     try:
         print('*** Starting to work...')
-        scrapper = ExpandableScrapperBase(url)
-        rule = TopVulnerablePasswordsRule()
+        scrapper = ExpandableScrapperBase(scrapper_rules[url]["address"])
+        rule = scrapper_rules[url]["rule"]()
         scrapper.scrap(rule)
         print('*** Saving...')
         scrapper.save(filename)
+        print('*** Done! Open %s to see output.'%filename)
     except Exception as e:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         traceback.print_exception(exc_type, exc_value, exc_traceback,
                               limit=2, file=sys.stdout)
-    print('*** Done! Open %s to see output.'%filename)
