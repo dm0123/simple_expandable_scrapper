@@ -3,19 +3,9 @@
     from web page
 """
 
-from lxml import html
-from expandable_scrapper_base import *
+from expandable_scrapper_base import ExpandableScrapperBase
 from top_vulnerable_password_rules import scrapper_rules
 import sys,traceback
-
-class TopVulnerablePasswordsRule(ScrapperRule):
-
-    def apply(self, document):
-        # TODO: harcdoded class for now
-        table = document.find_class("tablez").pop()
-        rows = table.findall('tr')
-        mapped = map(lambda x: x.getchildren()[1].text, rows)
-        return mapped
 
 if __name__ == "__main__":
     argc = len(sys.argv)
